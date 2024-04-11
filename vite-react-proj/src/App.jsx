@@ -1,6 +1,7 @@
 import Chai from "./Practise/Chai.jsx";
 import Counter from "./Practise/Counter.jsx";
 import Props from "./Practise/Props/Props.jsx";
+import PassGenerator from "./Practise/PasswordGenerator/PassGenerator.jsx";
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       {/* <Chai /> */}
       {/* <Counter/> */}
       {/* <Props /> */}
-      
+      <PassGenerator />
 
     </>
   );
