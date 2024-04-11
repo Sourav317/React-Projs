@@ -9,6 +9,20 @@ function PassGenerator() {
 
   const passwordRef = useRef(null)
 
+  const passwordGenerator = useCallback(() => {
+    let pass = ""
+    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    if (numAllowed) str += "0123456789"
+    if (chAllowed) str += "!@#$%^&*-_+=[]{}~`"
+
+    for (let i = 1; i <= length; i++) {
+      let char = Math.floor(Math.random() * str.length + 1)
+      pass += str.charAt(char)
+    }
+
+    setPass(pass)
+  },[length,numAllowed,chAllowed,setPass]);
+
   useEffect(() => {
     passwordGenerator()
   }, [length, numAllowed, chAllowed, passwordGenerator])
