@@ -9,7 +9,9 @@ function PassGenerator() {
 
   const passwordRef = useRef(null)
 
-
+  useEffect(() => {
+    passwordGenerator()
+  }, [length, numAllowed, chAllowed, passwordGenerator])
 
 
   return (
@@ -31,7 +33,41 @@ function PassGenerator() {
         >copy</button>
         
     </div>
-
+    <div className='flex text-sm gap-x-2'>
+      <div className='flex items-center gap-x-1'>
+        <input 
+        type="range"
+        min={6}
+        max={100}
+        value={length}
+         className='cursor-pointer'
+         onChange={(e) => {setLength(e.target.value)}}
+          />
+          <label>Length: {length}</label>
+      </div>
+      <div className="flex items-center gap-x-1">
+      <input
+          type="checkbox"
+          defaultChecked={numAllowed}
+          id="numberInput"
+          onChange={() => {
+              setNumAllowed((prev) => !prev);
+          }}
+      />
+      <label htmlFor="numberInput">Numbers</label>
+      </div>
+      <div className="flex items-center gap-x-1">
+          <input
+              type="checkbox"
+              defaultChecked={chAllowed}
+              id="characterInput"
+              onChange={() => {
+                  setChAllowed((prev) => !prev )
+              }}
+          />
+          <label htmlFor="characterInput">Characters</label>
+      </div>
+    </div>
 </div>
     
     </>
