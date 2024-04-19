@@ -6,10 +6,12 @@ import Navbar from './components/Navbar'
 import {CounterContext} from './context/CounterContext.js'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+   /* fragments    <> </>*/
 
   return (
-    <>
+    <> 
       <CounterContext.Provider value={ {count,setCount}}>
       <div>
         <Navbar />
