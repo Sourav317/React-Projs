@@ -6,7 +6,32 @@ function App() {
 
   let [todos,setTodo] = useState([]);
 
+  const addTodo = (todo) => {
+    setTodo((prev) =>{
+      [{id : Date.now, ...todo}, ...prev];
+    });
+  };
 
+  const updateTodo = (id,todo) => {
+    setTodo((prev) => prev.map((prevTodo) => (prevTodo.id === id ? todo : prevTodo ) ));
+  }
+
+  const deleteTodo = (id) => { (prev) => prev.filter((prevTodo) => (prevTodo.id !== id))};
+
+  const toggleComplete = (id) => {
+    setTodo( (prev) => (prev.map((prevTodo) => (prevTodo.id === id ? {...prevTodo, complete : !prevTodo.complete} : prevTodo))))
+  };
+
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem('todos'))
+
+    if(todos && todos.length> 0)
+      setTodo( todos);
+  }, [])
+  
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos])
 
 
   return (
