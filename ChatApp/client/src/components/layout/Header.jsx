@@ -18,8 +18,15 @@ import {
   Logout as LogoutIcon,
   Notifications as NotificationsIcon,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
+const handleMobile = () => console.log("mobile menu");
+const openSearch = () => console.log("open search");
+const openNewGroup = () => console.log("open new group");
+const navigateToGroup = () => Navigate("/groups");
+const openNotification = () => console.log("open notification");
+const logoutHandler = () => console.log("logout");
+const notificationCount = 5;
 
 const Header = () => {
   return (
@@ -40,10 +47,76 @@ const Header = () => {
             >
               Discord
             </Typography>
+
+             <Box
+              sx={{
+                display: { xs: "block", sm: "none" },
+              }}
+            >
+              <IconButton color="inherit" onClick={handleMobile}>
+                <MenuIcon />
+              </IconButton>
+            </Box>
+
+            <Box
+              sx={{
+                flexGrow: 1,
+              }}
+            />
+
+            <Box>
+              <IconBtn
+                title={"Search"}
+                icon={<SearchIcon />}
+                onClick={openSearch}
+              />
+
+              <IconBtn
+                title={"New Group"}
+                icon={<AddIcon />}
+                onClick={openNewGroup}
+              />
+
+              <IconBtn
+                title={"Manage Groups"}
+                icon={<GroupIcon />}
+                onClick={navigateToGroup}
+              />
+
+              <IconBtn
+                title={"Notifications"}
+                icon={<NotificationsIcon />}
+                onClick={openNotification}
+                value={notificationCount}
+              />
+
+              <IconBtn
+                title={"Logout"}
+                icon={<LogoutIcon />}
+                onClick={logoutHandler}
+              />
+            </Box>
+
             </Toolbar>
         </AppBar>
       </Box>
     </>
+  );
+};
+
+const IconBtn = ({ title, icon, onClick, value }) => {
+  return (
+    <Tooltip title={title}>
+      <IconButton color="inherit" size="large" onClick={onClick}>
+        {value ? (
+          <Badge badgeContent={value} color="error">
+            {icon}
+          </Badge>
+        ) : (
+          icon
+        )}
+      </IconButton>
+    </Tooltip>
   );
 };
 
