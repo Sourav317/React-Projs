@@ -2,6 +2,8 @@ import React from 'react'
 import { Drawer, Grid, Skeleton } from "@mui/material";
 import Header from "./Header";
 import Title from '../shared/Title';
+import ChatList from '../specific/ChatList';
+import { samepleChats } from '../../constants/SampleData';
 
 const AppLayout = () => (WrappedComponent) => {
   return (props) => {
@@ -19,7 +21,7 @@ const AppLayout = () => (WrappedComponent) => {
             }}
             height={"100%"}
           >
-           First
+           <ChatList chats={samepleChats}/>
           </Grid>
           <Grid item size={{ xs: 12, sm: 8, md: 5, lg: 6 }} height={"100%"}>
             <WrappedComponent {...props} />
