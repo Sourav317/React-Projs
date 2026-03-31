@@ -20,15 +20,32 @@ import {
 } from "@mui/icons-material";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const handleMobile = () => console.log("mobile menu");
-const openSearch = () => console.log("open search");
-const openNewGroup = () => console.log("open new group");
-const navigateToGroup = () => Navigate("/groups");
-const openNotification = () => console.log("open notification");
-const logoutHandler = () => console.log("logout");
-const notificationCount = 5;
+const SearchDialog = lazy(() => import("../specific/Search"));
+const NotificationDialog = lazy(() => import("../specific/Notifications"));
+const NewGroupDialog = lazy(() => import("../specific/NewGroup"));
 
 const Header = () => {
+  const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const [isNotification, setIsNotification] = useState(false);
+  const [isNewGroup, setIsNewGroup] = useState(false);
+
+  const handleMobile = () => {
+      setIsMobile((prev) => !prev);
+  }
+  const openSearch = () => {
+      setIsSearch((prev) => !prev);
+  }
+  const openNewGroup = () => {
+      setIsNewGroup((prev) => !prev);
+  };
+  const navigateToGroup = () => navigate("/groups");
+  const openNotification = () => {
+      setIsNotification((prev) => !prev);
+  };
+  const logoutHandler = () => console.log("logout");
+  const notificationCount = 5;
   return (
     <>
       <Box sx={{ flexGrow: 1 }} height={"4rem"}>
@@ -100,6 +117,24 @@ const Header = () => {
             </Toolbar>
         </AppBar>
       </Box>
+
+      {isSearch && (
+        <Suspense fallback={<Backdrop open />}>
+          <SearchDialog />
+        </Suspense>
+      )}
+
+      {isNotification && (
+        <Suspense fallback={<Backdrop open />}>
+          <NotificationDialog />
+        </Suspense>
+      )}
+
+      {isNewGroup && (
+        <Suspense fallback={<Backdrop open />}>
+          <NewGroupDialog />
+        </Suspense>
+      )}
     </>
   );
 };
